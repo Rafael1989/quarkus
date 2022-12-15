@@ -11,7 +11,7 @@ public class BookResourceTest {
     public void testHelloEndpoint(){
         given().
         when()
-            .get("/api/books").
+            .get("/api/books/hello").
         then()
             .statusCode(200)
             .body(is("Hello RestEasy"));
