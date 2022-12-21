@@ -1,0 +1,56 @@
+To create a quarkus application or you can go to the quarkus site 
+mvn -U io.quarkus:quarkus-maven-plugin:create \
+	-DprojectGroupId=org.agoncal.quarkus.starting \
+	-DprojectArtifactId=rest-book \
+	-DclassName="org.agoncal.quarkus.starting.BookResource" \
+	-Dpath="/api/books" \
+	-Dextensions="resteasy-jsonb"
+
+Execute
+mvn quarkus:dev ->8080
+
+Test
+mvn test -> 8081
+
+Overriding properties
+mvn quarkus:dev -Dbooks.genre=Drama
+
+mvn test -Dbooks.genre="Sci fi"
+
+Change profile
+mvn quarkus:dev -Dquarkus.profile=staging
+
+mvn test -> %test profile
+
+mvn package -Dquarkus.package.type=jar
+
+mvn package -Dquarkus.package.type=legacy-jar
+
+mvn package -Dquarkus.package.type=uber-jar
+
+java -jar target/quarkus-app/quarkus-run.jar -> %prod profile
+
+mvn package -Dquarkus.package.type=native = mvn package -Pnative
+
+
+mvn test -> execute the jvm test
+mvn verify -Pnative -> execute the native test
+
+add quarkus extension
+mvn quarkus:add-extension -Dextensions="container-image-docker"
+
+mvn package -Dquarkus.container-image.build=true
+
+mvn package -Dquarkus.container-image.build=true
+	-Dquarkus.package.type=jar
+
+mvn package -Dquarkus.container-image.build=true
+	-Dquarkus.package.type=legacy-jar
+
+docker run -i --rm -p 8080:8080 agocal/rest-book:jvm
+
+mvn package -Dquarkus.container-image.build=true
+	-Dquarkus.package.type=native
+	-Dquarkus.native.container-build=true
+	-Dquarkus.container-image.tag=native
+docker run -i --rm -p 8080:8080 agocal/rest-book:native
